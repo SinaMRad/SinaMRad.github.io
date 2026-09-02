@@ -9,7 +9,7 @@ if(brand){
   brand.setAttribute('aria-label','Sina Rad - Home');
 }
 const brandStyle=document.createElement('style');
-brandStyle.textContent='.brand{display:flex;align-items:center;flex:0 0 auto}.rad-brand-logo{display:block;width:142px;height:auto;max-height:52px}@media(max-width:680px){.rad-brand-logo{width:122px;max-height:46px}}';
+brandStyle.textContent='.brand{display:flex;align-items:center;flex:0 0 auto}.rad-brand-logo{display:block;width:178px;height:auto;max-height:54px}@media(max-width:680px){.rad-brand-logo{width:148px;max-height:48px}}';
 document.head.appendChild(brandStyle);
 
 let favicon=document.querySelector('link[rel="icon"]');
