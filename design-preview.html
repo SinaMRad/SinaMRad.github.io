@@ -11,8 +11,8 @@ iframe{height:100%;width:100%;border:0;background:#fff;transition:width .2s}
 iframe.mobile{width:390px;max-width:100%;box-shadow:0 0 35px #08222b55}
 @media(max-width:650px){.preview-note{display:none}.preview-bar{padding:8px}.preview-title{font-size:11px}.preview-actions a,.preview-actions button{font-size:10px;padding:7px}}
 </style></head><body>
-<header class="preview-bar"><div><div class="preview-title">Sina Rad <span>• Midnight Blue + Teal Preview</span></div><div class="preview-note">Preview only — your published design is unchanged</div></div><div class="preview-actions"><button id="desktop" class="active" type="button">Desktop</button><button id="mobile" type="button">Mobile</button><a href="/" target="_blank" rel="noopener">Original ↗</a></div></header>
-<div class="stage"><iframe id="site" title="Redesigned website preview" src="/index.html"></iframe></div>
+<header class="preview-bar"><div><div class="preview-title">Sina Rad <span>• Modern Minimal V2 Preview</span></div><div class="preview-note">Preview only — your published design is unchanged</div></div><div class="preview-actions"><button id="desktop" class="active" type="button">Desktop</button><button id="mobile" type="button">Mobile</button><a href="/" target="_blank" rel="noopener">Original ↗</a></div></header>
+<div class="stage"><iframe id="site" title="Redesigned website preview" src="/preview-home.html"></iframe></div>
 <script>
 (function(){
 const frame=document.getElementById('site');
@@ -25,7 +25,7 @@ function applyTheme(){
   }
  }catch(e){console.warn('Preview is available only for pages on this website.',e)}
 }
-frame.addEventListener('load',applyTheme);
+frame.addEventListener('load',function(){applyTheme();try{const d=frame.contentDocument;d.addEventListener('click',function(e){const a=e.target.closest('a[href]');if(!a)return;const u=new URL(a.href,location.origin);if(u.origin!==location.origin)return;if(u.pathname==='/'||u.pathname==='/index.html'){e.preventDefault();frame.src='/preview-home.html';}});}catch(e){}});
 document.getElementById('mobile').onclick=function(){frame.classList.add('mobile');this.classList.add('active');document.getElementById('desktop').classList.remove('active')};
 document.getElementById('desktop').onclick=function(){frame.classList.remove('mobile');this.classList.add('active');document.getElementById('mobile').classList.remove('active')};
 })();
