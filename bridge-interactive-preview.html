@@ -10,6 +10,26 @@ body{font-family:'DM Sans',sans-serif;background:#f3f7f8}.site-header{background
 .bridge-piece.placed{filter:drop-shadow(0 3px 2px #00182188)}
 .bridge-demo .bridge-head p{max-width:710px;line-height:1.65}
 .bridge-demo .bridge-status{letter-spacing:.02em}
+
+/* Interactive miniature exhibit */
+.bridge-demo{padding:36px 0 56px;background:#09283b}
+.bridge-demo .bridge-head{align-items:center;margin-bottom:18px}
+.bridge-demo .bridge-head h2{font-size:clamp(24px,3vw,37px);letter-spacing:-.035em}
+.bridge-demo .bridge-head p{margin-top:5px}
+.build-controls{display:flex;align-items:center;gap:12px}
+#build-progress{font-size:13px;font-weight:800;color:#76e2d4;white-space:nowrap}
+.bridge-scene{border-radius:22px;overflow:hidden;border:1px solid #6eaaa533;box-shadow:0 22px 65px #00172488}
+.bridge-scene svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}
+.build-part{cursor:grab;touch-action:none;filter:drop-shadow(0 8px 5px #001b2b88)}
+.build-part:focus-visible{outline:none;filter:drop-shadow(0 0 8px #ffe6a4)}
+.build-part.dragging{cursor:grabbing;filter:drop-shadow(0 14px 10px #001725cc) drop-shadow(0 0 4px #ffe7a9)}
+.build-part.placed{cursor:default;filter:drop-shadow(0 2px 2px #00172577)}
+.build-part.settling{animation:partSettle .36s ease-out}
+@keyframes partSettle{0%{opacity:.65;filter:drop-shadow(0 14px 12px #001725)}65%{opacity:1;filter:drop-shadow(0 3px 2px #001725)}100%{opacity:1}}
+.bridge-target.near{stroke:#ffe3a0!important;stroke-width:5!important;filter:drop-shadow(0 0 5px #ffe3a0)}
+.bridge-status{font-size:13px;color:#91dcd3;margin-top:13px;min-height:24px;font-weight:700}
+@media(max-width:680px){.bridge-demo{padding:24px 0}.bridge-scene{margin:0 -12px;border-radius:14px}.build-controls{width:100%;justify-content:space-between}}
+@media(prefers-reduced-motion:reduce){.build-part.settling{animation:none}}
 </style><!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-YGRYQWHBCT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YGRYQWHBCT');</script><style>
 .bridge-demo{background:#09283b;color:#fff;padding:28px 0 48px;border-top:1px solid #ffffff18}
 .bridge-demo .bridge-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:16px}
@@ -31,97 +51,102 @@ body{font-family:'DM Sans',sans-serif;background:#f3f7f8}.site-header{background
 </style><meta name="robots" content="noindex,nofollow"></head><body>
 <header class="site-header"><div class="container nav-wrap"><a class="brand" href="index.html">SINA <span>RAD</span></a><button class="menu-toggle" aria-label="Open menu" aria-expanded="false">☰</button><nav class="nav" aria-label="Main navigation"><a class="active" href="index.html">Home</a><a href="about.html">About</a><a href="experience.html">Experience</a><a href="research.html">Research</a><a href="projects.html">Projects</a><a href="publications.html">Publications</a><a href="training.html">Training</a><a href="gallery.html">Gallery</a><a href="cv.html">CV</a><a href="contact.html">Contact</a></nav></div></header>
 <main><section class="v2-hero"><div class="container v2-grid"><div><div class="v2-kicker">Engineer / Researcher</div><h1 class="v2-name">Sina<br><span>Rad</span></h1><div class="v2-degree">Ph.D.</div><div class="v2-role">Pavement Engineer &amp; Researcher</div><p class="v2-summary">Connecting materials research, pavement performance and management, and data-driven engineering to build better infrastructure.</p><div class="v2-actions"><a class="v2-action" href="projects.html">Explore my work ↗</a><a class="v2-action outline" href="cv.html">View CV ↗</a></div></div><div class="v2-visual"><div class="v2-photo-wrap"><img src="/images/profile/aa.jpg" alt="Professional portrait of Sina Rad"></div><div class="v2-orbit">SR / 2026</div><div class="v2-label">Engineering meets research<small>Materials · Pavements · Data</small></div></div></div></section>
-<section class="bridge-demo" aria-label="Interactive cable-stayed bridge game"><div class="container"><div class="bridge-head"><div><h2>Build the road. Connect the cables.</h2><p>First assemble the three asphalt road sections, then connect four stay cables to the central pylon. Drag pieces into place or tap to snap them in.</p></div><button id="bridge-reset" type="button">↻ Rebuild bridge</button></div>
-<div class="bridge-scene"><svg id="bridge-svg" viewBox="0 0 1000 460" role="img" aria-label="Interactive cable-stayed bridge with three stone piers, three draggable asphalt road sections and four draggable stay cables">
+<section class="bridge-demo" aria-label="Interactive miniature bridge-building exhibit"><div class="container">
+<div class="bridge-head"><div><h2>Build the crossing</h2><p>Connect the road sections and cables to open the bridge.</p></div><div class="build-controls"><span id="build-progress">0 / 7 installed</span><button id="bridge-reset" type="button">↻ Reset</button></div></div>
+<div class="bridge-scene"><svg id="bridge-svg" viewBox="0 0 1100 650" role="img" aria-label="Three-quarter perspective miniature cable-stayed bridge with draggable road decks and stay cables in a parts tray">
 <defs>
-<linearGradient id="bridgeSky" x2="0" y2="1"><stop stop-color="#122d47"/><stop offset=".7" stop-color="#2a5265"/><stop offset="1" stop-color="#214657"/></linearGradient>
-<linearGradient id="bridgeWater" x2="0" y2="1"><stop stop-color="#36717b"/><stop offset="1" stop-color="#12364f"/></linearGradient>
-<linearGradient id="deckSide" x2="0" y2="1"><stop stop-color="#c2a481"/><stop offset=".3" stop-color="#97765a"/><stop offset="1" stop-color="#4b453e"/></linearGradient>
-<linearGradient id="pylonFace" x2="0" y2="1"><stop stop-color="#d7d0bd"/><stop offset="1" stop-color="#777d77"/></linearGradient>
-<pattern id="bridgeStones" width="34" height="24" patternUnits="userSpaceOnUse"><rect width="34" height="24" fill="#9e9d90"/><path d="M0 12H34M16 0V12M5 12V24" stroke="#626c67" stroke-width="2"/><path d="M0 1H34" stroke="#c7c6b4" stroke-width="1" opacity=".6"/></pattern>
-<pattern id="bridgeRoad" width="25" height="24" patternUnits="userSpaceOnUse"><rect width="25" height="24" fill="#323e47"/><circle cx="4" cy="5" r=".9" fill="#71848c"/><circle cx="20" cy="16" r=".8" fill="#6a7b81"/></pattern>
-<radialGradient id="lampGlow"><stop stop-color="#ffe8aa" stop-opacity=".8"/><stop offset=".3" stop-color="#ffe7a2" stop-opacity=".28"/><stop offset="1" stop-color="#ffe8aa" stop-opacity="0"/></radialGradient>
-<filter id="cableGlow"><feGaussianBlur stdDeviation="3"/></filter>
+<linearGradient id="sky3" x2="0" y2="1"><stop stop-color="#17364c"/><stop offset="1" stop-color="#326b70"/></linearGradient>
+<linearGradient id="water3" x2="0" y2="1"><stop stop-color="#5bb8b6"/><stop offset=".55" stop-color="#288a95"/><stop offset="1" stop-color="#185f75"/></linearGradient>
+<linearGradient id="asphalt3" x2="0" y2="1"><stop stop-color="#54636a"/><stop offset=".4" stop-color="#303b44"/><stop offset="1" stop-color="#222e38"/></linearGradient>
+<linearGradient id="deckEdge" x2="0" y2="1"><stop stop-color="#e1bd91"/><stop offset=".5" stop-color="#b99b78"/><stop offset="1" stop-color="#796b5b"/></linearGradient>
+<linearGradient id="concrete3" x2="0" y2="1"><stop stop-color="#efe0c4"/><stop offset=".5" stop-color="#c5b8a2"/><stop offset="1" stop-color="#8b948e"/></linearGradient>
+<radialGradient id="light3"><stop stop-color="#ffe3a3" stop-opacity=".7"/><stop offset="1" stop-color="#ffe3a3" stop-opacity="0"/></radialGradient>
+<filter id="shadow3"><feGaussianBlur stdDeviation="11"/></filter>
+<pattern id="waterlines" width="85" height="26" patternUnits="userSpaceOnUse"><path d="M5 12Q22 5 42 12T82 12" fill="none" stroke="#d0f7ed" stroke-width="1.8" opacity=".22"/></pattern>
 </defs>
-<rect width="1000" height="460" fill="url(#bridgeSky)"/>
-<circle cx="760" cy="85" r="100" fill="#8abfba" opacity=".07"/>
-<path d="M0 215L100 112L196 199L315 95L423 207L568 111L704 215L839 102L1000 205V315H0Z" fill="#1a4154"/>
-<path d="M0 265L140 194L260 244L402 171L555 253L710 175L870 240L1000 187V330H0Z" fill="#285b61"/>
-<g fill="#183f40" opacity=".8"><path d="M0 305l45-104 47 104zM50 307l49-129 52 129zM830 305l43-103 45 103zM895 310l55-142 50 142z"/></g>
-<path d="M0 329Q200 303 380 330T720 323T1000 312V460H0Z" fill="url(#bridgeWater)"/>
-<g fill="none" stroke="#a3d2d2" stroke-width="2" opacity=".3"><path d="M60 365Q210 350 350 369T640 366T940 355"/><path d="M110 401Q340 384 520 404T940 391"/><path d="M0 430Q200 414 400 434T900 421"/></g>
-<g fill="#547361"><path d="M0 288L105 271L175 315L175 460H0Z"/><path d="M824 311L911 267L1000 285V460H824Z"/></g>
-<!-- Exactly three stone piers: left, center, right -->
-<g stroke="#5b635e" stroke-width="2"><path d="M112 248H169V374L156 384H123L112 374Z" fill="url(#bridgeStones)"/><path d="M467 248H533V420L518 429H483L467 420Z" fill="url(#bridgeStones)"/><path d="M831 248H888V374L876 384H844L831 374Z" fill="url(#bridgeStones)"/></g>
-<g fill="#d0cbb6"><path d="M105 242H176V252H105Z M459 242H541V252H459Z M824 242H895V252H824Z"/></g>
-<!-- Pylon and continuous asphalt roadway -->
-<path d="M0 232H1000V263H0Z" fill="url(#deckSide)"/>
-<path d="M0 224H115V246H0Z M885 224H1000V246H885Z" fill="url(#bridgeRoad)" stroke="#9caeae" stroke-width="2"/>
-<path d="M0 235H115M885 235H1000" stroke="#f6e4b3" stroke-width="2.5" stroke-dasharray="24 17"/>
-<g id="road-guides" fill="#76e2d418" stroke="#76e2d4" stroke-width="2" stroke-dasharray="7 6"><rect id="road-guide-0" x="115" y="224" width="260" height="22" rx="2"/><rect id="road-guide-1" x="375" y="224" width="250" height="22" rx="2"/><rect id="road-guide-2" x="625" y="224" width="260" height="22" rx="2"/></g>
-<path d="M0 260H1000" stroke="#4a3630" stroke-width="5"/>
-<path d="M489 224L489 73Q489 59 500 59Q511 59 511 73V224" fill="url(#pylonFace)" stroke="#e5d8c3" stroke-width="2"/>
-<path d="M495 73V222" stroke="#faf1da" stroke-width="2" opacity=".7"/>
-<path d="M485 91H515M485 132H515M485 174H515" stroke="#87948e" stroke-width="4"/>
-<!-- Four ghost cables indicate target positions -->
-<g id="cable-guides" stroke="#76e2d4" stroke-width="5" stroke-dasharray="8 8" opacity=".6" fill="none"><path id="guide-0" d="M494 90L175 223"/><path id="guide-1" d="M494 135L335 223"/><path id="guide-2" d="M506 135L665 223"/><path id="guide-3" d="M506 90L825 223"/></g>
-<g fill="#76e2d4" opacity=".85"><circle cx="175" cy="223" r="6"/><circle cx="335" cy="223" r="6"/><circle cx="665" cy="223" r="6"/><circle cx="825" cy="223" r="6"/></g>
-<!-- Floating cable pieces, draggable as whole elements -->
-<g id="cable-0" class="bridge-piece cable-piece" tabindex="0" role="button" aria-label="Connect far-left stay cable" transform="translate(12 -52)"><path d="M494 90L175 223" stroke="#071d2c" stroke-width="9" fill="none"/><path d="M494 90L175 223" stroke="#d8e5df" stroke-width="4" fill="none"/><circle cx="175" cy="223" r="8" fill="#76e2d4" stroke="#f6f2d9" stroke-width="2"/></g>
-<g id="cable-1" class="bridge-piece cable-piece" tabindex="0" role="button" aria-label="Connect near-left stay cable" transform="translate(-115 -95)"><path d="M494 135L335 223" stroke="#071d2c" stroke-width="9" fill="none"/><path d="M494 135L335 223" stroke="#d8e5df" stroke-width="4" fill="none"/><circle cx="335" cy="223" r="8" fill="#76e2d4" stroke="#f6f2d9" stroke-width="2"/></g>
-<g id="cable-2" class="bridge-piece cable-piece" tabindex="0" role="button" aria-label="Connect near-right stay cable" transform="translate(120 -92)"><path d="M506 135L665 223" stroke="#071d2c" stroke-width="9" fill="none"/><path d="M506 135L665 223" stroke="#d8e5df" stroke-width="4" fill="none"/><circle cx="665" cy="223" r="8" fill="#76e2d4" stroke="#f6f2d9" stroke-width="2"/></g>
-<g id="cable-3" class="bridge-piece cable-piece" tabindex="0" role="button" aria-label="Connect far-right stay cable" transform="translate(-15 -50)"><path d="M506 90L825 223" stroke="#071d2c" stroke-width="9" fill="none"/><path d="M506 90L825 223" stroke="#d8e5df" stroke-width="4" fill="none"/><circle cx="825" cy="223" r="8" fill="#76e2d4" stroke="#f6f2d9" stroke-width="2"/></g>
-<!-- Three removable asphalt deck panels -->
-<g id="road-0" class="bridge-piece road-piece" tabindex="0" role="button" aria-label="Connect left asphalt road section" transform="translate(15 110)"><rect width="260" height="22" rx="2" fill="url(#bridgeRoad)" stroke="#c1d3d1" stroke-width="2"/><path d="M0 22H260V34H0Z" fill="url(#deckSide)"/><path d="M9 11H250" stroke="#f6e4b3" stroke-width="2.5" stroke-dasharray="24 17"/></g>
-<g id="road-1" class="bridge-piece road-piece" tabindex="0" role="button" aria-label="Connect middle asphalt road section" transform="translate(375 155)"><rect width="250" height="22" rx="2" fill="url(#bridgeRoad)" stroke="#c1d3d1" stroke-width="2"/><path d="M0 22H250V34H0Z" fill="url(#deckSide)"/><path d="M9 11H240" stroke="#f6e4b3" stroke-width="2.5" stroke-dasharray="24 17"/></g>
-<g id="road-2" class="bridge-piece road-piece" tabindex="0" role="button" aria-label="Connect right asphalt road section" transform="translate(725 110)"><rect width="260" height="22" rx="2" fill="url(#bridgeRoad)" stroke="#c1d3d1" stroke-width="2"/><path d="M0 22H260V34H0Z" fill="url(#deckSide)"/><path d="M9 11H250" stroke="#f6e4b3" stroke-width="2.5" stroke-dasharray="24 17"/></g>
-<!-- Roadside lights -->
-<g stroke="#c7d1c7" stroke-width="3" fill="none"><path d="M65 223V179h20M255 223V179h20M725 223V179h20M915 223V179h20"/></g>
-<g fill="#ffe5a0"><rect x="80" y="176" width="14" height="5" rx="2"/><rect x="270" y="176" width="14" height="5" rx="2"/><rect x="740" y="176" width="14" height="5" rx="2"/><rect x="930" y="176" width="14" height="5" rx="2"/></g>
-<g opacity=".75"><circle cx="86" cy="185" r="52" fill="url(#lampGlow)"/><circle cx="276" cy="185" r="52" fill="url(#lampGlow)"/><circle cx="746" cy="185" r="52" fill="url(#lampGlow)"/><circle cx="936" cy="185" r="52" fill="url(#lampGlow)"/></g>
-<!-- Vehicles remain hidden until all seven construction pieces are connected -->
-<g id="bridge-traffic" aria-label="Animated vehicles crossing completed bridge" opacity="0">
-<g id="vehicle-0" transform="translate(-130 180)"><!-- blue sedan -->
-<ellipse cx="47" cy="43" rx="43" ry="4" fill="#071c2b" opacity=".35"/>
-<path d="M5 20H14L29 5Q35 1 45 1H64Q72 1 78 9L87 20H94Q99 20 99 26V36H2V27Q2 22 5 20Z" fill="#4888b8" stroke="#b3d4e1" stroke-width="1.5"/>
-<path d="M30 8H63Q68 8 72 14L77 20H18Z" fill="#9bc9d3"/><path d="M48 8V20" stroke="#36566a" stroke-width="2"/>
-<path d="M6 27H96" stroke="#b3d9ea" stroke-width="1.5" opacity=".7"/><rect x="92" y="24" width="7" height="6" rx="2" fill="#fff1c0"/>
-<circle cx="23" cy="36" r="10" fill="#18242c"/><circle cx="78" cy="36" r="10" fill="#18242c"/><circle cx="23" cy="36" r="4.5" fill="#b8c5cb"/><circle cx="78" cy="36" r="4.5" fill="#b8c5cb"/></g>
-<g id="vehicle-1" transform="translate(-130 180)"><!-- cream delivery van -->
-<ellipse cx="53" cy="43" rx="52" ry="4" fill="#071c2b" opacity=".35"/>
-<path d="M4 8Q4 4 10 4H68Q73 4 76 9L88 22H105V36H2V15Q2 8 4 8Z" fill="#e2d4b6" stroke="#fff1d4" stroke-width="1.5"/>
-<path d="M73 11H79L89 23H73Z" fill="#86b3bc"/><path d="M67 6V34" stroke="#b09e7f" stroke-width="2"/><rect x="12" y="14" width="41" height="5" rx="2" fill="#c2a881"/>
-<rect x="101" y="24" width="5" height="6" fill="#fff3b2"/><circle cx="24" cy="36" r="10" fill="#18242c"/><circle cx="84" cy="36" r="10" fill="#18242c"/><circle cx="24" cy="36" r="4.5" fill="#b8c5cb"/><circle cx="84" cy="36" r="4.5" fill="#b8c5cb"/></g>
-<g id="vehicle-2" transform="translate(-130 180)"><!-- red SUV -->
-<ellipse cx="48" cy="43" rx="47" ry="4" fill="#071c2b" opacity=".35"/>
-<path d="M4 19L15 18L25 4Q28 2 35 2H72Q80 2 83 9L92 20H99V36H2V26Q2 20 4 19Z" fill="#bd6657" stroke="#e8b5a6" stroke-width="1.5"/>
-<path d="M30 8H69Q75 8 78 15L82 19H20Z" fill="#9bc3c8"/><path d="M51 8V19" stroke="#684b4b" stroke-width="2"/>
-<rect x="94" y="24" width="5" height="6" fill="#fff2c2"/><circle cx="23" cy="36" r="10" fill="#19252b"/><circle cx="79" cy="36" r="10" fill="#19252b"/><circle cx="23" cy="36" r="4.5" fill="#c1c4c3"/><circle cx="79" cy="36" r="4.5" fill="#c1c4c3"/></g>
-<g id="vehicle-3" transform="translate(-130 180)"><!-- dark pickup truck -->
-<ellipse cx="52" cy="43" rx="50" ry="4" fill="#071c2b" opacity=".35"/>
-<path d="M4 21H12L25 6Q28 3 34 3H56L70 21H107V36H2V26Q2 22 4 21Z" fill="#627e75" stroke="#b1c6b8" stroke-width="1.5"/>
-<path d="M30 9H53L63 21H18Z" fill="#9cc3c4"/><path d="M72 22H104" stroke="#cad7c8" stroke-width="2"/><rect x="103" y="26" width="5" height="5" fill="#fff0b8"/>
-<circle cx="24" cy="36" r="10" fill="#18242c"/><circle cx="86" cy="36" r="10" fill="#18242c"/><circle cx="24" cy="36" r="4.5" fill="#b8c5cb"/><circle cx="86" cy="36" r="4.5" fill="#b8c5cb"/></g>
+<rect width="1100" height="650" fill="url(#sky3)"/>
+<path d="M0 250L110 130L240 235L350 100L490 225L650 105L815 215L970 110L1100 230V450H0Z" fill="#204a59" opacity=".72"/>
+<path d="M0 340L130 220L255 310L390 192L535 315L700 195L880 300L1010 206L1100 300V450H0Z" fill="#32645e" opacity=".8"/>
+<path d="M0 365Q160 316 310 380T680 368T1100 335V650H0Z" fill="url(#water3)"/>
+<path d="M0 365Q160 316 310 380T680 368T1100 335V650H0Z" fill="url(#waterlines)"/>
+<path d="M0 350L132 302L230 375L196 650H0Z" fill="#6b9476"/><path d="M875 370L1005 295L1100 340V650H940Z" fill="#5b8d74"/>
+<path d="M0 367L135 319L219 382" fill="none" stroke="#c3ba97" stroke-width="18"/><path d="M883 380L1000 315L1100 355" fill="none" stroke="#c3ba97" stroke-width="18"/>
+<ellipse cx="547" cy="429" rx="410" ry="52" fill="#05283a" opacity=".35" filter="url(#shadow3)"/>
+<!-- exactly three warm-concrete support piers -->
+<g fill="url(#concrete3)" stroke="#a49d8b" stroke-width="2">
+<path d="M218 333L260 330L273 349L273 439L251 454L218 439Z"/>
+<path d="M524 312L563 308L579 329L579 487L552 503L524 486Z"/>
+<path d="M835 285L878 281L892 302L892 415L864 431L835 415Z"/>
 </g>
-<text x="500" y="447" text-anchor="middle" fill="#c5e3df" font-family="sans-serif" font-size="14" letter-spacing="1">THREE STONE PIERS · CABLE-STAYED PYLON · ILLUMINATED ASPHALT DECK</text>
-</svg></div><div id="bridge-status" class="bridge-status" aria-live="polite">0 of 3 road sections · 0 of 4 cables connected</div></div></section>
+<g fill="#f2e4c8"><path d="M211 325L262 321L281 341L221 346Z"/><path d="M516 303L566 298L587 320L528 328Z"/><path d="M827 275L881 270L901 292L841 298Z"/></g>
+<g fill="none" stroke="#827c70" stroke-width="2" opacity=".5"><path d="M223 377L269 372M223 414L269 408M530 376L575 371M530 431L575 425M842 345L889 340M842 383L889 379"/></g>
+<!-- fixed deck girders and central tower -->
+<path d="M126 355L947 280L963 322L142 399Z" fill="url(#deckEdge)" stroke="#7c6958" stroke-width="3"/>
+<path d="M126 355L947 280L961 306L141 380Z" fill="#4a5960" stroke="#a4b2b0" stroke-width="2"/>
+<path d="M143 385L960 309" stroke="#69594c" stroke-width="7"/>
+<path d="M526 315L526 107Q526 90 542 89Q558 90 558 107V312L547 327Z" fill="url(#concrete3)" stroke="#eee4d0" stroke-width="3"/>
+<path d="M533 108V306" stroke="#f8f0dd" stroke-width="3" opacity=".8"/>
+<path d="M520 144L562 141M520 190L562 187M520 236L562 233" stroke="#9a9b8c" stroke-width="6"/>
+<!-- ghost deck slots and cable targets -->
+<g id="road-targets" fill="#76e2d41d" stroke="#8ce7da" stroke-width="2.5" stroke-dasharray="9 7">
+<path id="target-0" d="M210 344L425 325L438 361L223 380Z"/>
+<path id="target-1" d="M425 325L640 305L653 341L438 361Z"/>
+<path id="target-2" d="M640 305L855 285L868 321L653 341Z"/>
+</g>
+<g id="cable-targets" fill="none" stroke="#83dfd2" stroke-width="3.5" stroke-dasharray="8 7" opacity=".62"><path id="cable-target-0" d="M535 122L300 319"/><path id="cable-target-1" d="M535 151L408 310"/><path id="cable-target-2" d="M547 151L680 289"/><path id="cable-target-3" d="M547 122L801 280"/></g>
+<!-- barriers and street lights -->
+<g fill="none" stroke="#d8cfb8" stroke-width="3"><path d="M127 345L950 270"/><path d="M127 345V331M210 337V323M294 329V315M380 321V307M468 313V299M636 298V284M725 290V276M817 282V268M950 270V256"/></g>
+<g stroke="#d7d2bb" stroke-width="3" fill="none"><path d="M166 341V283l17-2M370 322V264l17-2M715 290V232l17-2M915 273V215l17-2"/></g>
+<g fill="#ffe6a4"><rect x="179" y="277" width="17" height="5" rx="2"/><rect x="383" y="258" width="17" height="5" rx="2"/><rect x="728" y="226" width="17" height="5" rx="2"/><rect x="928" y="209" width="17" height="5" rx="2"/></g>
+<g opacity=".7"><circle cx="187" cy="288" r="44" fill="url(#light3)"/><circle cx="392" cy="269" r="44" fill="url(#light3)"/><circle cx="737" cy="237" r="44" fill="url(#light3)"/><circle cx="937" cy="220" r="44" fill="url(#light3)"/></g>
+<!-- miniature landscaped trees -->
+<g><path d="M80 382V310M106 367V292M1018 370V293M1052 398V324" stroke="#67513c" stroke-width="8"/>
+<g fill="#285d4b"><circle cx="80" cy="295" r="31"/><circle cx="106" cy="278" r="27"/><circle cx="1018" cy="277" r="32"/><circle cx="1052" cy="308" r="25"/></g><g fill="#4d9975" opacity=".8"><circle cx="69" cy="282" r="19"/><circle cx="98" cy="268" r="16"/><circle cx="1007" cy="264" r="19"/><circle cx="1042" cy="296" r="16"/></g></g>
+<!-- vehicle layer stays hidden until complete -->
+<g id="bridge-traffic" opacity="0"></g>
+<!-- construction parts appear above tray, last in draw order -->
+<g id="interactive-parts"><g id="road-0" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 1" data-kind="road" data-index="0"><path d="M0 0L215 -17L228 19L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 19V52L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15"/><path d="M10 7L217 -10" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M212 -17L225 19" stroke="#d9c3a4" stroke-width="2"/></g><g id="road-1" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 2" data-kind="road" data-index="1"><path d="M0 0L215 -17L228 19L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 19V52L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15"/><path d="M10 7L217 -10" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M212 -17L225 19" stroke="#d9c3a4" stroke-width="2"/></g><g id="road-2" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 3" data-kind="road" data-index="2"><path d="M0 0L215 -17L228 19L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 19V52L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15"/><path d="M10 7L217 -10" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M212 -17L225 19" stroke="#d9c3a4" stroke-width="2"/></g><g id="cable-0" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 1" data-kind="cable" data-index="0"><path d="M535 122L300 319" stroke="#30414b" stroke-width="9" stroke-linecap="round"/><path d="M535 122L300 319" stroke="#dce7e3" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="122" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/><circle cx="300" cy="319" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/></g><g id="cable-1" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 2" data-kind="cable" data-index="1"><path d="M535 151L408 310" stroke="#30414b" stroke-width="9" stroke-linecap="round"/><path d="M535 151L408 310" stroke="#dce7e3" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="151" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/><circle cx="408" cy="310" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/></g><g id="cable-2" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 3" data-kind="cable" data-index="2"><path d="M547 151L680 289" stroke="#30414b" stroke-width="9" stroke-linecap="round"/><path d="M547 151L680 289" stroke="#dce7e3" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="151" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/><circle cx="680" cy="289" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/></g><g id="cable-3" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 4" data-kind="cable" data-index="3"><path d="M547 122L801 280" stroke="#30414b" stroke-width="9" stroke-linecap="round"/><path d="M547 122L801 280" stroke="#dce7e3" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="122" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/><circle cx="801" cy="280" r="7" fill="#d2a46d" stroke="#f7e4b8" stroke-width="2"/></g></g>
+<!-- bottom parts tray -->
+<rect x="25" y="498" width="1050" height="127" rx="19" fill="#102f42" stroke="#83b5b1" stroke-opacity=".55" stroke-width="2"/>
+<rect x="37" y="508" width="1026" height="108" rx="14" fill="#1c4252" opacity=".7"/>
+<text x="52" y="525" fill="#c4e8e4" font-family="Manrope,sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">PARTS TRAY</text>
+<text x="52" y="608" fill="#a9d1d0" font-family="sans-serif" font-size="12">ROAD DECKS</text><text x="606" y="608" fill="#a9d1d0" font-family="sans-serif" font-size="12">STAY CABLES</text>
+<path d="M585 514V609" stroke="#6a9999" opacity=".45"/>
+</svg></div>
+<div class="bridge-status" id="bridge-status" aria-live="polite">Drag a part from the tray to its matching outline.</div>
+</div></section>
 <div class="v2-ticker"><div class="container"><span>Pavement <b>Engineering</b></span><span>Asphalt <b>Materials</b></span><span>Performance <b>Research</b></span><span>Pavement <b>Design &amp; Management</b></span></div></div>
 <section class="v2-section"><div class="container"><div class="v2-mini">01 / Areas of expertise</div><h2 class="v2-heading">Built on curiosity.<br>Driven by impact.</h2><div class="v2-bento"><article class="v2-tile"><div class="num">01 / FEATURED</div><div><h3>Engineering better pavement performance.</h3><p>Performance-based evaluation of asphalt mixtures, balanced mix design, aging, cracking, rutting, and moisture susceptibility.</p><a href="research.html">Explore research ↗</a></div></article><article class="v2-tile"><div class="num">02 / PRACTICE</div><div><h3>Pavement Engineering</h3><p>Practical engineering informed by materials science and field performance.</p><a href="experience.html">Experience ↗</a></div></article><article class="v2-tile"><div class="num">03 / INNOVATION</div><div><h3>Data &amp; Machine Learning</h3><p>Engineering insight through predictive modeling and analysis.</p><a href="projects.html">Projects ↗</a></div></article><article class="v2-tile"><div class="num">04 / KNOWLEDGE</div><div><h3>Publications</h3><p>Research findings shared through peer-reviewed technical work.</p><a href="publications.html">Read publications ↗</a></div></article><article class="v2-tile"><div class="num">05 / BEYOND THE DESK</div><div><h3>Field &amp; Laboratory</h3><p>From experiments to engineering practice and professional events.</p><a href="gallery.html">Explore gallery ↗</a></div></article></div></div></section>
 <section class="v2-bottom"><div class="container"><div class="v2-kicker">Let's connect</div><h2>Ideas become stronger<br>when we collaborate.</h2><p>Engineering opportunities, research collaboration, and professional conversations.</p><a href="contact.html">Get in touch ↗</a></div></section></main><footer class="footer"><div class="container footer-wrap"><span>© 2026 Sina Rad</span><span>Pavement Engineering · Research · Data</span></div></footer><script src="/js/script.js"></script><style id="rad-v2-logo-style">.brand .rad-brand-logo{opacity:1!important;filter:brightness(0) saturate(100%) invert(80%) sepia(38%) saturate(520%) hue-rotate(117deg) brightness(99%) contrast(92%)!important}.brand::after{display:none!important}</style><script>
-(()=>{const svg=document.getElementById('bridge-svg'),status=document.getElementById('bridge-status'),traffic=document.getElementById('bridge-traffic'),vehicles=[0,1,2,3].map(i=>document.getElementById('vehicle-'+i));
-const cableEls=[0,1,2,3].map(i=>document.getElementById('cable-'+i)),roadEls=[0,1,2].map(i=>document.getElementById('road-'+i));
-const cableGuides=[0,1,2,3].map(i=>document.getElementById('guide-'+i)),roadGuides=[0,1,2].map(i=>document.getElementById('road-guide-'+i));
-const starts=[[15,110],[375,155],[725,110],[12,-52],[-115,-95],[120,-92],[-15,-50]];
-const targets=[[115,224],[375,224],[625,224],[0,0],[0,0],[0,0],[0,0]];
-const pieces=[...roadEls,...cableEls],guides=[...roadGuides,...cableGuides];
-let pos=starts.map(p=>p.slice()),placed=Array(7).fill(false),active=null,carFrame=0,trafficStart=0;
-function draw(i){pieces[i].setAttribute('transform','translate('+pos[i][0]+' '+pos[i][1]+')')}
-function runTraffic(){cancelAnimationFrame(carFrame);traffic.style.opacity='1';trafficStart=performance.now();const speed=190,spacing=350,cycle=1120+spacing*4;function frame(t){const elapsed=(t-trafficStart)/1000;vehicles.forEach((vehicle,i)=>{const x=((elapsed*speed-i*spacing+cycle)%cycle)-130;vehicle.setAttribute('transform','translate('+x.toFixed(1)+' 180)')});carFrame=requestAnimationFrame(frame)}carFrame=requestAnimationFrame(frame)}
-function stopTraffic(){cancelAnimationFrame(carFrame);traffic.style.opacity='0';vehicles.forEach(v=>v.setAttribute('transform','translate(-130 180)'))}
-function report(){const roads=placed.slice(0,3).filter(Boolean).length,cables=placed.slice(3).filter(Boolean).length;status.textContent=roads===3&&cables===4?'Bridge complete! The illuminated crossing is open. 🚗':roads+' of 3 road sections · '+cables+' of 4 cables connected';if(roads===3&&cables===4)runTraffic()}
-function place(i){if(placed[i])return;pos[i]=targets[i].slice();placed[i]=true;pieces[i].classList.add('placed');guides[i].style.opacity='0';pieces[i].setAttribute('aria-label',i<3?'Road section connected':'Cable connected');draw(i);report()}
-function point(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
-pieces.forEach((el,i)=>{el.addEventListener('pointerdown',e=>{if(placed[i])return;const p=point(e);active={i,dx:p.x-pos[i][0],dy:p.y-pos[i][1],x:p.x,y:p.y,moved:false};el.setPointerCapture(e.pointerId)});el.addEventListener('pointermove',e=>{if(!active||active.i!==i)return;const p=point(e);if(Math.hypot(p.x-active.x,p.y-active.y)>5)active.moved=true;pos[i]=[p.x-active.dx,p.y-active.dy];draw(i)});el.addEventListener('pointerup',()=>{if(!active||active.i!==i)return;const moved=active.moved;active=null;if(!moved||Math.hypot(pos[i][0]-targets[i][0],pos[i][1]-targets[i][1])<75)place(i);else{pos[i]=starts[i].slice();draw(i)}});el.addEventListener('pointercancel',()=>{if(!active||active.i!==i)return;active=null;pos[i]=starts[i].slice();draw(i)});el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();place(i)}})});
-document.getElementById('bridge-reset').addEventListener('click',()=>{stopTraffic();placed=Array(7).fill(false);pos=starts.map(p=>p.slice());pieces.forEach((p,i)=>{p.classList.remove('placed');p.setAttribute('aria-label',i<3?'Connect asphalt road section '+(i+1):'Connect stay cable '+(i-2));guides[i].style.opacity='';draw(i)});report()});
+(()=>{
+const svg=document.getElementById('bridge-svg'),status=document.getElementById('bridge-status'),progress=document.getElementById('build-progress'),traffic=document.getElementById('bridge-traffic');
+const roadTargets=[[210,344],[425,325],[640,305]],tray=[[75,547],[263,547],[448,547],[660,549],[754,549],[850,549],[951,549]];
+const els=[...Array(3)].map((_,i)=>document.getElementById('road-'+i)).concat([...Array(4)].map((_,i)=>document.getElementById('cable-'+i)));
+const targets=els.map((_,i)=>document.getElementById(i<3?'target-'+i:'cable-target-'+(i-3)));
+const anchors=[[0,0],[0,0],[0,0],[535,122],[535,151],[547,151],[547,122]];
+let placed=Array(7).fill(false),positions=tray.map(p=>p.slice()),drag=null,frameId=0,trafficStart=0,trafficStarted=false;
+const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function scale(i){return i<3?.68:.29}
+function tx(i,x,y,full=false){const k=full?1:scale(i),a=anchors[i];return 'translate('+x+' '+y+') scale('+k+') translate('+(-a[0])+' '+(-a[1])+')'}
+function setPart(i,x,y,full=false){els[i].setAttribute('transform',tx(i,x,y,full))}
+function svgPoint(e){const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;return p.matrixTransform(svg.getScreenCTM().inverse())}
+function targetPos(i){return i<3?roadTargets[i]:[0,0]}
+function report(){const n=placed.filter(Boolean).length;progress.textContent=n+' / 7 installed';status.textContent=n===7?'Bridge open! Traffic is flowing.':n<3?'Install the asphalt panels, then attach the cables.':'Connect the remaining bridge parts.';if(n===7&&!trafficStarted){trafficStarted=true;status.textContent='Bridge complete! Opening to traffic…';setTimeout(()=>{if(trafficStarted){status.textContent='Bridge open! Traffic is flowing.';startTraffic()}},reduced?0:600)}}
+function install(i){if(placed[i])return;placed[i]=true;els[i].classList.remove('dragging');els[i].classList.add('placed','settling');const [x,y]=targetPos(i);setPart(i,x,y,true);targets[i].style.opacity='0';setTimeout(()=>els[i].classList.remove('settling'),380);report()}
+function near(i,x,y){const p=targetPos(i);if(i<3)return Math.hypot(x-p[0],y-p[1])<85;return Math.hypot(x-anchors[i][0],y-anchors[i][1])<85}
+els.forEach((el,i)=>{setPart(i,...tray[i]);el.addEventListener('pointerdown',e=>{if(placed[i])return;e.preventDefault();const p=svgPoint(e);drag={i,dx:p.x-positions[i][0],dy:p.y-positions[i][1],start:p,moved:false};el.setPointerCapture(e.pointerId);el.classList.add('dragging')});
+el.addEventListener('pointermove',e=>{if(!drag||drag.i!==i)return;const p=svgPoint(e);drag.moved ||= Math.hypot(p.x-drag.start.x,p.y-drag.start.y)>6;positions[i]=[p.x-drag.dx,p.y-drag.dy];setPart(i,...positions[i]);targets[i].classList.toggle('near',near(i,...positions[i]))});
+el.addEventListener('pointerup',()=>{if(!drag||drag.i!==i)return;const wasMoved=drag.moved;drag=null;el.classList.remove('dragging');targets[i].classList.remove('near');if(!wasMoved||near(i,...positions[i]))install(i);else{positions[i]=tray[i].slice();setPart(i,...positions[i])}});
+el.addEventListener('pointercancel',()=>{if(!drag||drag.i!==i)return;drag=null;el.classList.remove('dragging');targets[i].classList.remove('near');positions[i]=tray[i].slice();setPart(i,...positions[i])});
+el.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&!placed[i]){e.preventDefault();install(i)}})});
+const colors=['#4c9dc5','#d9ba87','#c76f5e','#668c79','#e2b14f'];
+function makeVehicle(i){const g=document.createElementNS('http://www.w3.org/2000/svg','g');g.setAttribute('id','mini-car-'+i);const truck=i===3,van=i===1,suv=i===2;const w=truck?67:van?62:suv?56:52;
+g.innerHTML='<ellipse cx="'+(w/2)+'" cy="32" rx="'+(w/2)+'" ry="4" fill="#071c2b" opacity=".3"/><path d="M2 16L12 15L20 5Q23 2 28 2H'+(w-15)+'L'+(w-7)+' 15H'+(w-2)+'Q'+w+' 15 '+w+' 20V27H1V20Z" fill="'+colors[i%colors.length]+'" stroke="#d7e2dd" stroke-width="1.1"/><path d="M22 7H'+(w-18)+'L'+(w-10)+' 15H14Z" fill="#b4d8dc"/><path d="M31 7V15" stroke="#537583" stroke-width="1.5"/><rect x="'+(w-5)+'" y="18" width="4" height="5" fill="#ffe9ae"/><g class="wheels"><circle cx="13" cy="27" r="7" fill="#1a2931"/><circle cx="'+(w-13)+'" cy="27" r="7" fill="#1a2931"/><circle cx="13" cy="27" r="3" fill="#bfc8c7"/><circle cx="'+(w-13)+'" cy="27" r="3" fill="#bfc8c7"/></g>';
+traffic.appendChild(g);return g}
+const vehicles=Array.from({length:5},(_,i)=>makeVehicle(i));
+function startTraffic(){cancelAnimationFrame(frameId);traffic.style.opacity='1';trafficStart=performance.now();function tick(t){if(!trafficStarted)return;const elapsed=(t-trafficStart)/1000;vehicles.forEach((v,i)=>{const speed=reduced?95:125+(i%3)*8;const x=((elapsed*speed-i*245+1480)%1480)-180;const y=337-(x-126)*.091-33;v.setAttribute('transform','translate('+x.toFixed(1)+' '+y.toFixed(1)+') scale(.78) rotate(-5)');const wheels=v.querySelector('.wheels');if(wheels&&!reduced)wheels.setAttribute('transform','rotate('+(elapsed*450%360)+' 24 27)')});frameId=requestAnimationFrame(tick)}frameId=requestAnimationFrame(tick)}
+function reset(){trafficStarted=false;cancelAnimationFrame(frameId);traffic.style.opacity='0';drag=null;placed=Array(7).fill(false);positions=tray.map(p=>p.slice());els.forEach((el,i)=>{el.classList.remove('placed','dragging','settling');setPart(i,...positions[i]);targets[i].style.opacity='';targets[i].classList.remove('near')});report()}
+document.getElementById('bridge-reset').addEventListener('click',reset);
+report();
 })();
 </script></body></html>
