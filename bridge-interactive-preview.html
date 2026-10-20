@@ -30,7 +30,13 @@ body{font-family:'DM Sans',sans-serif;background:#f3f7f8}.site-header{background
 .bridge-status{font-size:13px;color:#91dcd3;margin-top:13px;min-height:24px;font-weight:700}
 @media(max-width:680px){.bridge-demo{padding:24px 0}.bridge-scene{margin:0 -12px;border-radius:14px}.build-controls{width:100%;justify-content:space-between}}
 @media(prefers-reduced-motion:reduce){.build-part.settling{animation:none}}
-</style><!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-YGRYQWHBCT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YGRYQWHBCT');</script><style>
+/* Embedded game view: no duplicate website header or hero */
+html.game-embed body{background:#09283b;margin:0}
+html.game-embed .site-header,html.game-embed .v2-hero,html.game-embed .v2-ticker,html.game-embed .v2-section,html.game-embed .v2-bottom,html.game-embed .footer{display:none!important}
+html.game-embed .bridge-demo{padding:16px 0 22px}
+html.game-embed .bridge-demo>.container{max-width:100%;padding:0 16px}
+html.game-embed .bridge-head h2{font-size:22px}
+</style><script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('game-embed');</script><!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-YGRYQWHBCT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YGRYQWHBCT');</script><style>
 .bridge-demo{background:#09283b;color:#fff;padding:28px 0 48px;border-top:1px solid #ffffff18}
 .bridge-demo .bridge-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:16px}
 .bridge-demo h2{font:800 clamp(22px,3vw,35px) Manrope,sans-serif;margin:0;color:#fff}
@@ -94,7 +100,15 @@ body{font-family:'DM Sans',sans-serif;background:#f3f7f8}.site-header{background
 <g fill="none" stroke="#4b554f" stroke-width="2" opacity=".65">
 <path d="M218 372L257 368M218 410L256 406M524 353L559 350M524 391L558 388M524 429L558 426M524 467L557 464M835 325L875 321M835 363L873 359M835 401L870 397"/>
 </g>
-<g fill="#e9d9b9" stroke="#817b6a" stroke-width="2"><path d="M210 325L262 321L281 341L221 346Z"/><path d="M515 303L566 298L587 320L528 328Z"/><path d="M826 275L881 270L901 292L841 298Z"/></g>
+<g stroke="#706b60" stroke-width="2">
+<path d="M210 325L262 321L281 341L221 346Z" fill="url(#masonry)"/>
+<path d="M515 303L566 298L587 320L528 328Z" fill="url(#masonry)"/>
+<path d="M826 275L881 270L901 292L841 298Z" fill="url(#masonry)"/>
+<path d="M221 346L281 341L281 351L221 356Z" fill="#857f71"/>
+<path d="M528 328L587 320L587 330L528 338Z" fill="#857f71"/>
+<path d="M841 298L901 292L901 302L841 308Z" fill="#857f71"/>
+</g>
+<g fill="none" stroke="#655f54" stroke-width="2" opacity=".8"><path d="M232 324L242 343M250 322L262 342M539 301L548 326M558 300L569 324M851 273L860 296M870 272L882 294"/></g>
 <g fill="none" stroke="#f7e9ce" stroke-width="2" opacity=".55"><path d="M220 338L253 336M527 317L554 315M837 290L870 287"/></g>
 <!-- fixed deck girders and central tower -->
 <path d="M126 355L947 280L963 322L142 399Z" fill="url(#deckEdge)" stroke="#7c6958" stroke-width="3"/>
