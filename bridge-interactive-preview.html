@@ -36,6 +36,20 @@ html.game-embed .site-header,html.game-embed .v2-hero,html.game-embed .v2-ticker
 html.game-embed .bridge-demo{padding:16px 0 22px}
 html.game-embed .bridge-demo>.container{max-width:100%;padding:0 16px}
 html.game-embed .bridge-head h2{font-size:22px}
+/* Visual-only detailing; no changes to object dimensions or hit testing */
+.bridge-demo .bridge-head h2{font-weight:800;letter-spacing:-.045em;text-shadow:0 2px 15px #041d2c50}
+.bridge-demo .bridge-head p{color:#b9d9d8}
+.bridge-scene{background:#102d40;border-color:#81bcb277;box-shadow:0 24px 70px #00121f88,0 0 0 1px #d1f6ed0c}
+#build-progress{background:#163e4d;border:1px solid #6fb8b166;border-radius:999px;padding:8px 13px;color:#a8f2e3}
+#bridge-reset{box-shadow:0 6px 15px #031d2b33;transition:background .2s ease,box-shadow .2s ease}
+#bridge-reset:hover{box-shadow:0 8px 20px #031d2b77}
+.bridge-status{color:#c3e8e0;font-weight:700}
+.environment-detail{pointer-events:none!important}
+#bridge-traffic>g{filter:url(#miniCarPaint)}
+#bridge-traffic .wheels circle:nth-child(n+3){stroke:#8b9b9d;stroke-width:1}
+.water-drift{animation:riverShift 8s ease-in-out infinite alternate}
+@keyframes riverShift{from{transform:translateX(-6px);opacity:.24}to{transform:translateX(7px);opacity:.55}}
+@media(prefers-reduced-motion:reduce){.water-drift{animation:none}}
 </style><script>if(new URLSearchParams(location.search).get('embed')==='1')document.documentElement.classList.add('game-embed');</script><!-- Google Analytics (GA4) --><script async src="https://www.googletagmanager.com/gtag/js?id=G-YGRYQWHBCT"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-YGRYQWHBCT');</script><style>
 .bridge-demo{background:#09283b;color:#fff;padding:28px 0 48px;border-top:1px solid #ffffff18}
 .bridge-demo .bridge-head{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:16px}
@@ -67,6 +81,13 @@ html.game-embed .bridge-head h2{font-size:22px}
 <linearGradient id="deckEdge" x2="0" y2="1"><stop stop-color="#e1bd91"/><stop offset=".5" stop-color="#b99b78"/><stop offset="1" stop-color="#796b5b"/></linearGradient>
 <linearGradient id="concrete3" x2="0" y2="1"><stop stop-color="#efe0c4"/><stop offset=".5" stop-color="#c5b8a2"/><stop offset="1" stop-color="#8b948e"/></linearGradient>
 <radialGradient id="light3"><stop stop-color="#ffe3a3" stop-opacity=".7"/><stop offset="1" stop-color="#ffe3a3" stop-opacity="0"/></radialGradient>
+<linearGradient id="stoneRich" x1="0" y1="0" x2="1" y2=".8"><stop stop-color="#d5c9b4"/><stop offset=".48" stop-color="#ada899"/><stop offset="1" stop-color="#7e8783"/></linearGradient>
+<pattern id="stoneFine" width="43" height="28" patternUnits="userSpaceOnUse"><rect width="43" height="28" fill="url(#stoneRich)"/><path d="M0 14H43M21 0V14M8 14V28" fill="none" stroke="#5f655f" stroke-width="2.6"/><path d="M0 16H43M23 2V12M10 17V26" fill="none" stroke="#f3e9d4" stroke-width="1.3" opacity=".5"/><path d="M4 7l8 2m20-4 6 3M15 23l8-2" fill="none" stroke="#827e72" stroke-width="1" opacity=".55"/></pattern>
+<pattern id="asphaltGrain" width="35" height="28" patternUnits="userSpaceOnUse"><rect width="35" height="28" fill="url(#asphaltGrain)"/><g fill="#99aaa9" opacity=".22"><circle cx="4" cy="7" r=".9"/><circle cx="15" cy="19" r="1.1"/><circle cx="30" cy="6" r=".8"/><circle cx="24" cy="24" r=".7"/><circle cx="10" cy="25" r=".7"/></g><path d="M0 3L35 0" stroke="#fff" opacity=".035"/></pattern>
+<linearGradient id="steelFinish" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="#e0e9e4"/><stop offset=".3" stop-color="#93b4b5"/><stop offset=".6" stop-color="#536b76"/><stop offset="1" stop-color="#263f4e"/></linearGradient>
+<linearGradient id="trayFinish" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#294c5d"/><stop offset=".6" stop-color="#183747"/><stop offset="1" stop-color="#102c3b"/></linearGradient>
+<linearGradient id="riverGlint" x1="0" y1="0" x2="1" y2=".2"><stop stop-color="#d4fff0" stop-opacity="0"/><stop offset=".5" stop-color="#a9f0df" stop-opacity=".23"/><stop offset="1" stop-color="#d4fff0" stop-opacity="0"/></linearGradient>
+<filter id="miniCarPaint" x="-25%" y="-50%" width="150%" height="200%"><feDropShadow dx="0" dy="1.2" stdDeviation="1.2" flood-color="#091e29" flood-opacity=".4"/></filter>
 <filter id="shadow3"><feGaussianBlur stdDeviation="11"/></filter>
 <pattern id="waterlines" width="85" height="26" patternUnits="userSpaceOnUse"><path d="M5 12Q22 5 42 12T82 12" fill="none" stroke="#d0f7ed" stroke-width="1.8" opacity=".22"/></pattern>
 </defs>
@@ -78,6 +99,13 @@ html.game-embed .bridge-head h2{font-size:22px}
 <path d="M0 350L132 302L230 375L196 650H0Z" fill="#6b9476"/><path d="M875 370L1005 295L1100 340V650H940Z" fill="#5b8d74"/>
 <path d="M0 367L135 319L219 382" fill="none" stroke="#c3ba97" stroke-width="18"/><path d="M883 380L1000 315L1100 355" fill="none" stroke="#c3ba97" stroke-width="18"/>
 <ellipse cx="547" cy="429" rx="410" ry="52" fill="#05283a" opacity=".35" filter="url(#shadow3)"/>
+<!-- Non-interactive reflections and gentle animated current -->
+<g class="environment-detail water-detail" pointer-events="none">
+<path d="M300 444Q490 412 690 443T995 414" stroke="url(#riverGlint)" stroke-width="18" fill="none" opacity=".55"/>
+<g class="water-drift" fill="none" stroke="#bcece2" stroke-linecap="round" opacity=".38">
+<path d="M316 508q24-7 51 0m27-7q19-6 40-1m286-28q30-9 64-2m-185 69q29-7 55 0m166-4q20-7 42-2" stroke-width="2.2"/>
+<path d="M380 589q32-10 67-2m46 7q18-6 39-1m198-15q25-8 54-2m-390-32q15-5 35-1" stroke-width="1.5"/>
+</g></g>
 <!-- Three dimensional stone masonry piers -->
 <defs>
 <pattern id="masonry" width="54" height="38" patternUnits="userSpaceOnUse">
@@ -92,29 +120,36 @@ html.game-embed .bridge-head h2{font-size:22px}
 <clipPath id="pierRight"><path d="M835 285L878 281L892 302L892 415L864 431L835 415Z"/></clipPath>
 </defs>
 <g stroke="#6b6c62" stroke-width="2">
-<path d="M218 333L260 330L273 349L273 439L251 454L218 439Z" fill="url(#masonry)"/>
-<path d="M524 312L563 308L579 329L579 487L552 503L524 486Z" fill="url(#masonry)"/>
-<path d="M835 285L878 281L892 302L892 415L864 431L835 415Z" fill="url(#masonry)"/>
+<path d="M218 333L260 330L273 349L273 439L251 454L218 439Z" fill="url(#stoneFine)"/>
+<path d="M524 312L563 308L579 329L579 487L552 503L524 486Z" fill="url(#stoneFine)"/>
+<path d="M835 285L878 281L892 302L892 415L864 431L835 415Z" fill="url(#stoneFine)"/>
 </g>
 <g fill="url(#stoneSide)" opacity=".83"><path d="M260 330L273 349V439L251 454V348Z"/><path d="M563 308L579 329V487L552 503V327Z"/><path d="M878 281L892 302V415L864 431V300Z"/></g>
 <g fill="none" stroke="#4b554f" stroke-width="2" opacity=".65">
 <path d="M218 372L257 368M218 410L256 406M524 353L559 350M524 391L558 388M524 429L558 426M524 467L557 464M835 325L875 321M835 363L873 359M835 401L870 397"/>
 </g>
 <g stroke="#706b60" stroke-width="2">
-<path d="M210 325L262 321L281 341L221 346Z" fill="url(#masonry)"/>
-<path d="M515 303L566 298L587 320L528 328Z" fill="url(#masonry)"/>
-<path d="M826 275L881 270L901 292L841 298Z" fill="url(#masonry)"/>
+<path d="M210 325L262 321L281 341L221 346Z" fill="url(#stoneFine)"/>
+<path d="M515 303L566 298L587 320L528 328Z" fill="url(#stoneFine)"/>
+<path d="M826 275L881 270L901 292L841 298Z" fill="url(#stoneFine)"/>
 <path d="M221 346L281 341L281 351L221 356Z" fill="#857f71"/>
 <path d="M528 328L587 320L587 330L528 338Z" fill="#857f71"/>
 <path d="M841 298L901 292L901 302L841 308Z" fill="#857f71"/>
 </g>
 <g fill="none" stroke="#655f54" stroke-width="2" opacity=".8"><path d="M232 324L242 343M250 322L262 342M539 301L548 326M558 300L569 324M851 273L860 296M870 272L882 294"/></g>
 <g fill="none" stroke="#f7e9ce" stroke-width="2" opacity=".55"><path d="M220 338L253 336M527 317L554 315M837 290L870 287"/></g>
+<!-- inset mortar grooves and small carved stone variations; non-interactive -->
+<g class="environment-detail" pointer-events="none">
+<g clip-path="url(#pierLeft)" fill="none" stroke="#4d5955" stroke-width="2" opacity=".75"><path d="M215 356L275 350M215 389L275 383M215 422L275 416M235 332V354M253 356V387M231 390V420M256 421V452"/></g>
+<g clip-path="url(#pierMiddle)" fill="none" stroke="#4d5955" stroke-width="2" opacity=".72"><path d="M520 345L581 340M520 379L581 374M520 413L581 408M520 447L581 442M520 481L581 476M544 313V343M558 346V377M538 379V411M561 414V445M539 448V480"/></g>
+<g clip-path="url(#pierRight)" fill="none" stroke="#4d5955" stroke-width="2" opacity=".75"><path d="M830 318L894 312M830 352L894 346M830 386L894 380M856 285V315M871 319V349M851 352V383M872 388V424"/></g>
+<g fill="#f5e6c9" opacity=".25"><path d="M220 354l10-1-4 4h-6ZM530 365l11-2-4 4h-7ZM842 334l12-2-4 4h-8Z"/></g>
+</g>
 <!-- fixed deck girders and central tower -->
 <path d="M126 355L947 280L963 322L142 399Z" fill="url(#deckEdge)" stroke="#7c6958" stroke-width="3"/>
-<path d="M126 355L947 280L961 306L141 380Z" fill="#4a5960" stroke="#a4b2b0" stroke-width="2"/>
+<path d="M126 355L947 280L961 306L141 380Z" fill="url(#steelFinish)" stroke="#a4b2b0" stroke-width="2"/>
 <path d="M143 385L960 309" stroke="#69594c" stroke-width="7"/>
-<path d="M526 315L526 107Q526 90 542 89Q558 90 558 107V312L547 327Z" fill="url(#concrete3)" stroke="#eee4d0" stroke-width="3"/>
+<path d="M526 315L526 107Q526 90 542 89Q558 90 558 107V312L547 327Z" fill="url(#stoneFine)" stroke="#eee4d0" stroke-width="3"/>
 <path d="M533 108V306" stroke="#f8f0dd" stroke-width="3" opacity=".8"/>
 <path d="M520 144L562 141M520 190L562 187M520 236L562 233" stroke="#9a9b8c" stroke-width="6"/>
 <!-- ghost deck slots and cable targets -->
@@ -132,24 +167,41 @@ html.game-embed .bridge-head h2{font-size:22px}
 <!-- miniature landscaped trees -->
 <g><path d="M80 382V310M106 367V292M1018 370V293M1052 398V324" stroke="#67513c" stroke-width="8"/>
 <g fill="#285d4b"><circle cx="80" cy="295" r="31"/><circle cx="106" cy="278" r="27"/><circle cx="1018" cy="277" r="32"/><circle cx="1052" cy="308" r="25"/></g><g fill="#4d9975" opacity=".8"><circle cx="69" cy="282" r="19"/><circle cx="98" cy="268" r="16"/><circle cx="1007" cy="264" r="19"/><circle cx="1042" cy="296" r="16"/></g></g>
+<!-- Non-interactive sculpted riverbank details -->
+<g class="environment-detail" pointer-events="none">
+<g fill="#a9a18c" stroke="#6d7d76" stroke-width="1.6">
+<path d="M24 429l18-13 25 4 10 16-17 10-26-4Z"/><path d="M103 474l15-9 22 7 6 12-19 8-18-6Z"/>
+<path d="M962 438l16-13 26 7 6 14-24 7-22-5Z"/><path d="M1036 471l17-11 22 8 4 14-21 5-21-8Z"/>
+</g>
+<g fill="#e1d5b7" opacity=".55"><path d="M27 429l18-11 20 4-14 5Z"/><path d="M964 438l16-11 21 6-16 4Z"/></g>
+<g fill="none" stroke="#6bb08b" stroke-width="3" stroke-linecap="round"><path d="M44 490q-8-16-7-27m7 27q8-16 16-19m68 30q-5-15-1-23m-1 23q8-10 17-14m836-13q-6-20-1-30m1 30q10-16 17-19m55 28q-4-17 1-25"/></g>
+<g fill="#9dc08b"><circle cx="38" cy="462" r="3"/><circle cx="59" cy="471" r="3"/><circle cx="997" cy="455" r="3"/></g>
+</g>
 <!-- vehicle layer stays hidden until complete -->
 <g id="bridge-traffic" opacity="0"></g>
 <!-- bottom parts tray -->
-<rect x="25" y="657" width="1050" height="125" rx="19" fill="#102f42" stroke="#83b5b1" stroke-opacity=".55" stroke-width="2"/>
-<rect x="37" y="668" width="1026" height="104" rx="14" fill="#1c4252" opacity=".7"/>
+<rect x="25" y="657" width="1050" height="125" rx="19" fill="url(#trayFinish)" stroke="#83b5b1" stroke-opacity=".55" stroke-width="2"/>
+<rect x="37" y="668" width="1026" height="104" rx="14" fill="#1b3a4a" opacity=".6"/>
 <text x="52" y="685" fill="#c4e8e4" font-family="Manrope,sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">PARTS TRAY</text>
 <text x="52" y="769" fill="#a9d1d0" font-family="sans-serif" font-size="12">ROAD DECKS</text><text x="606" y="769" fill="#a9d1d0" font-family="sans-serif" font-size="12">STAY CABLES</text>
 <path d="M585 669V773" stroke="#6a9999" opacity=".45"/>
+<!-- decorative inset sockets; no hitboxes -->
+<g class="environment-detail" pointer-events="none">
+<g fill="#0b2837" stroke="#65969b" stroke-opacity=".55" stroke-width="1.5">
+<rect x="48" y="692" width="165" height="61" rx="11"/><rect x="231" y="692" width="165" height="61" rx="11"/><rect x="412" y="692" width="165" height="61" rx="11"/>
+<rect x="607" y="692" width="96" height="61" rx="11"/><rect x="715" y="692" width="96" height="61" rx="11"/><rect x="823" y="692" width="96" height="61" rx="11"/><rect x="931" y="692" width="96" height="61" rx="11"/>
+</g><g stroke="#a7e7dd" opacity=".23" stroke-width="1.5"><path d="M60 700H201M243 700H383M425 700H565M619 700H692M727 700H800M835 700H908M943 700H1016"/></g>
+</g>
 <!-- One seamless asphalt finish, shown only when all three panels are installed -->
 <g id="seamless-road" style="display:none" pointer-events="none">
-<path d="M210 344L855 285L868 321L223 380Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="1.5"/>
+<path d="M210 344L855 285L868 321L223 380Z" fill="url(#asphaltGrain)" stroke="#81949b" stroke-width="1.5"/>
 <path d="M223 380L868 321L868 337L223 396Z" fill="url(#deckEdge)" stroke="#695d50" stroke-width="1.4"/>
 <path d="M223 359L868 300" fill="none" stroke="#f5dcaa" stroke-width="3.2" stroke-dasharray="25 17"/>
 <path d="M210 350L855 291" fill="none" stroke="#c1cfce" opacity=".6" stroke-width="1.7"/>
 <g stroke="#dbc5a8" stroke-width="1.4" opacity=".38"><path d="M425 325L438 361"/><path d="M640 305L653 341"/></g>
 </g>
 <!-- construction parts appear above tray, last in draw order -->
-<g id="interactive-parts"><g id="road-0" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 1" data-kind="road" data-index="0"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="0"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="road-1" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 2" data-kind="road" data-index="1"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="5"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="road-2" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 3" data-kind="road" data-index="2"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphalt3)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="10"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="cable-0" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 1" data-kind="cable" data-index="0"><g class="installed-cable" style="display:none"><path d="M535 122L300 336" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M535 122L300 336" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="122" r="6" fill="#d6b381"/><circle cx="300" cy="336" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-1" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 2" data-kind="cable" data-index="1"><g class="installed-cable" style="display:none"><path d="M535 151L408 326" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M535 151L408 326" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="151" r="6" fill="#d6b381"/><circle cx="408" cy="326" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-2" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 3" data-kind="cable" data-index="2"><g class="installed-cable" style="display:none"><path d="M547 151L680 302" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M547 151L680 302" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="151" r="6" fill="#d6b381"/><circle cx="680" cy="302" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-3" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 4" data-kind="cable" data-index="3"><g class="installed-cable" style="display:none"><path d="M547 122L801 291" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M547 122L801 291" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="122" r="6" fill="#d6b381"/><circle cx="801" cy="291" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g></g>
+<g id="interactive-parts"><g id="road-0" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 1" data-kind="road" data-index="0"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphaltGrain)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="0"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="road-1" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 2" data-kind="road" data-index="1"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphaltGrain)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="5"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="road-2" class="build-part road-piece" role="button" tabindex="0" aria-label="Install road panel 3" data-kind="road" data-index="2"><path d="M0 0L215 -19L228 17L13 36Z" fill="url(#asphaltGrain)" stroke="#81949b" stroke-width="2"/><path d="M13 36L228 17V33L13 52Z" fill="url(#deckEdge)" stroke="#655c55" stroke-width="1.5"/><path d="M0 0L13 36V52L0 16Z" fill="#736456"/><path d="M18 19L209 2" stroke="#f8dca2" stroke-width="3" stroke-dasharray="20 15" stroke-dashoffset="10"/><path d="M10 7L217 -12" stroke="#cad6d2" stroke-width="1.5" opacity=".7"/><path d="M215 -19L228 17" stroke="#d9c3a4" stroke-width="1" opacity=".35"/></g><g id="cable-0" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 1" data-kind="cable" data-index="0"><g class="installed-cable" style="display:none"><path d="M535 122L300 336" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M535 122L300 336" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="122" r="6" fill="#d6b381"/><circle cx="300" cy="336" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-1" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 2" data-kind="cable" data-index="1"><g class="installed-cable" style="display:none"><path d="M535 151L408 326" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M535 151L408 326" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="535" cy="151" r="6" fill="#d6b381"/><circle cx="408" cy="326" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-2" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 3" data-kind="cable" data-index="2"><g class="installed-cable" style="display:none"><path d="M547 151L680 302" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M547 151L680 302" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="151" r="6" fill="#d6b381"/><circle cx="680" cy="302" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g><g id="cable-3" class="build-part cable-piece" role="button" tabindex="0" aria-label="Attach stay cable 4" data-kind="cable" data-index="3"><g class="installed-cable" style="display:none"><path d="M547 122L801 291" stroke="#33414a" stroke-width="9" stroke-linecap="round"/><path d="M547 122L801 291" stroke="#e4e9e2" stroke-width="4" stroke-linecap="round"/><circle cx="547" cy="122" r="6" fill="#d6b381"/><circle cx="801" cy="291" r="6" fill="#d6b381"/></g><g class="tray-cable"><path d="M0 10L73 -13" stroke="#324650" stroke-width="10" stroke-linecap="round"/><path d="M0 10L73 -13" stroke="#e2e9e3" stroke-width="4" stroke-linecap="round"/><circle cx="0" cy="10" r="7" fill="#d6b381"/><circle cx="73" cy="-13" r="7" fill="#d6b381"/></g></g></g>
 </svg></div>
 <div class="bridge-status" id="bridge-status" aria-live="polite">Drag a part from the tray to its matching outline.</div>
 </div></section>
