@@ -1,0 +1,19 @@
+/* Responsive photo gallery and accessible lightbox */
+.gallery-page-grid .photo-card{overflow:hidden;border-radius:16px;cursor:zoom-in}
+.gallery-page-grid .photo-card img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .25s ease}
+.gallery-page-grid .photo-card:hover img{transform:scale(1.035)}
+.gallery-page-grid .photo-card:focus-visible{outline:3px solid #21b8ac;outline-offset:4px}
+.gallery-page-grid .photo-card figcaption{font-size:.9rem;line-height:1.45;padding:12px 14px}
+.gallery-page-grid .photo-card.placeholder{cursor:default}
+.gallery-lightbox{position:fixed;inset:0;z-index:10000;background:rgba(2,16,28,.96);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:56px 50px 38px;color:#fff;box-sizing:border-box}
+.gallery-lightbox[hidden]{display:none!important}
+.gallery-lightbox img{display:block;max-width:100%;max-height:calc(100dvh - 160px);width:auto;height:auto;object-fit:contain;border-radius:8px}
+.gallery-lightbox .gl-caption{text-align:center;margin:12px 0 0;color:#d3eeeb;font:500 15px/1.5 system-ui,sans-serif}
+.gallery-lightbox button{border:1px solid #7cbbb4;background:#0b3344dd;color:#fff;cursor:pointer;border-radius:50%;width:42px;height:42px;font-size:24px;display:grid;place-items:center}
+.gallery-lightbox button:focus-visible{outline:3px solid #73e4d2;outline-offset:3px}
+.gallery-lightbox .gl-close{position:absolute;top:14px;right:18px}
+.gallery-lightbox .gl-prev,.gallery-lightbox .gl-next{position:absolute;top:50%;transform:translateY(-50%)}
+.gallery-lightbox .gl-prev{left:12px}.gallery-lightbox .gl-next{right:12px}
+.gallery-lightbox .gl-count{position:absolute;top:22px;left:24px;color:#c6e7e2;font:600 13px system-ui,sans-serif}
+@media(max-width:600px){.gallery-lightbox{padding:58px 12px 54px}.gallery-lightbox img{max-height:calc(100dvh - 170px)}.gallery-lightbox .gl-prev,.gallery-lightbox .gl-next{top:auto;bottom:12px;transform:none}.gallery-lightbox .gl-prev{left:calc(50% - 56px)}.gallery-lightbox .gl-next{right:calc(50% - 56px)}}
+@media(prefers-reduced-motion:reduce){.gallery-page-grid .photo-card img{transition:none}}
